@@ -4,6 +4,9 @@ import sys
 
 #Сбор информации об ОС
 
+import sys
+import platform
+
 
 info = 'OS info is \n{} \n\nPython version is {} {}'.format(
     platform.uname(), sys.version, platform.architecture()
