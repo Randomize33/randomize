@@ -28,12 +28,42 @@ shops = {
 }
 
 # Создайте словарь цен на продкты следующего вида (писать прямо в коде)
+
+name1=shops.get('ашан')[0].get('name')
+name2=shops.get('ашан')[1].get('name')
+name3=shops.get('ашан')[2].get('name')
+name4=shops.get('ашан')[3].get('name')
+
+shop=[*shops]
+print(shop[0])
+
+
+
+
+
 sweets = {
-    'название сладости': [
-        {'shop': 'название магазина', 'price': 99.99},
-        # TODO тут с клавиатуры введите магазины и цены (можно копипастить ;)
+    name1: [
+        {'shop': shop[0], 'price': shops.get(shop[0])[0].get('price')},
+        {'shop': shop[1], 'price': shops.get(shop[1])[0].get('price')},
+        {'shop': shop[2], 'price': shops.get(shop[2])[0].get('price')},
     ],
-    # TODO тут с клавиатуры введите другую сладость и далее словарь магазинов
+    name2: [
+        {'shop': shop[0], 'price': shops.get(shop[0])[1].get('price')},
+        {'shop': shop[1], 'price': shops.get(shop[1])[1].get('price')},
+        {'shop': shop[2], 'price': shops.get(shop[2])[1].get('price')},
+    ],
+    name2: [
+        {'shop': shop[0], 'price': shops.get(shop[0])[2].get('price')},
+        {'shop': shop[1], 'price': shops.get(shop[1])[2].get('price')},
+        {'shop': shop[2], 'price': shops.get(shop[2])[2].get('price')},
+    ],
+    name3: [
+        {'shop': shop[0], 'price': shops.get(shop[0])[3].get('price')},
+        {'shop': shop[1], 'price': shops.get(shop[1])[3].get('price')},
+        {'shop': shop[2], 'price': shops.get(shop[2])[3].get('price')},
+    ]
 }
 # Указать надо только по 2 магазина с минимальными ценами
 
+
+print(sweets)
