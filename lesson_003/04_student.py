@@ -10,5 +10,14 @@
 #   Студенту надо попросить ХХХ.ХХ рублей
 
 educational_grant, expenses = 10000, 12000
+total_expenses=0
+i=0
+while i<10:
+    total_expenses += expenses
+    expenses = expenses * 1.03
+    i+=1
 
-# TODO здесь ваш код
+total_educational_grant=educational_grant*10
+money_from_parent=round(total_expenses - total_educational_grant,2)
+print ('Студенту надо попросить ' + str(money_from_parent) + 'рублей')
+
