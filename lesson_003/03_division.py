@@ -10,4 +10,15 @@
 
 a, b = 179, 37
 
-# TODO здесь ваш код
+line=str(a/b)
+simbol=''
+i=0
+result=''
+
+while simbol != '.':
+    result += line[i]
+    i += 1
+    simbol = line[i]
+
+
+print(result)
