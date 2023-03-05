@@ -46,7 +46,26 @@ store = {
 #         подсчет стоимости товара
 #     вывод на консоль количества и стоимости товара на складе
 
-# TODO здесь ваш код
+items_list=[]
+items_list.append(goods.get('Лампа'))
+items_list.append(goods.get('Стол'))
+items_list.append(goods.get('Диван'))
+items_list.append(goods.get('Стул'))
+
+items = {}
+for key, value in goods.items():
+  items[value] = items.get(value, []) + [key]
+
+
+for item in items_list:
+    total_cost = 0
+    total_quantity = 0
+    good_lists=store.get(item)
+    name_of_goods=items.get(item)[0]
+    for quantity in good_lists:
+        total_cost += quantity.get('quantity')*quantity.get('price')
+        total_quantity += quantity.get('quantity')
+    print('Количество товара ' + name_of_goods + ' на складе: ' + str(total_quantity) + 'шт' + ', стоимостью: ' + str(total_cost))
 
 
 
