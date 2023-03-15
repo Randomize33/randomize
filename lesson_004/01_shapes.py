@@ -27,7 +27,54 @@ import simple_draw as sd
 # sd.line()
 # Результат решения см lesson_004/results/exercise_01_shapes.jpg
 
-# TODO здесь ваш код
+def triangle(start_point,angle,length):
+    if angle > 360:
+        pass
+    else:
+        v1=sd.vector(start_point,angle,length)
+        start_point=v1
+        triangle(start_point,angle+120,length)
+
+def square(start_point,angle,length):
+    if angle > 360:
+        pass
+    else:
+        vector=sd.vector(start_point,angle,length)
+        start_point=vector
+        square(start_point,angle+90,length)
+
+def pentagon(start_point,angle,length):
+    if angle > 360:
+        pass
+    else:
+        vector=sd.vector(start_point,angle,length)
+        start_point=vector
+        pentagon(start_point,angle+72,length)
+
+def hexagon(start_point,angle,length):
+    if angle > 360:
+        pass
+    else:
+        vector=sd.vector(start_point,angle,length)
+        start_point=vector
+        hexagon(start_point,angle+60,length)
+
+def draw_figure(start_point,angle,length):
+    if angle == 360:
+        pass
+    else:
+        vector=sd.vector(start_point,angle,length)
+        start_point=vector
+        draw_figure(start_point,angle+angle_delta,length)
+
+
+# triangle(sd.get_point(100,100),0,100)
+# square(sd.get_point(100,100),0,100)
+# pentagon(sd.get_point(100,100),0,100)
+#hexagon(sd.get_point(100,100),0,100)
+angle_count = input("Введите количество углов у фигуры: ")
+angle_delta = 360/float(angle_count)
+draw_figure(sd.get_point(100,100),0,100)
 
 # Часть 1-бис.
 # Попробуйте прикинуть обьем работы, если нужно будет внести изменения в этот код.
