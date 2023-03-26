@@ -20,12 +20,11 @@ def сheck_number(quessed):
             bull=bull+1
         elif int(quessed[counter]) in number:
             cow=cow+1
-            win=False
     return (bull,cow)
 
 def change_gamer(names,total_gamers,move):
     global gamer
-    if move==total_gamers-1:
+    if move==total_gamers:
         move=0
         gamer=names[move]
     else:
