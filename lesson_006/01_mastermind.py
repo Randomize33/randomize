@@ -42,5 +42,49 @@
 # Движок игры реализует только саму функциональность игры.
 # Это пример применения SOLID принципа (см https://goo.gl/GFMoaI) в архитектуре программ.
 # Точнее, в этом случае важен принцип единственной ответственности - https://goo.gl/rYb3hT
+#
+#
+from mastermind_engine import сheck_number, think_number
+names=[]
+gamer=''
+move=0
+total_gamers=0
+def name_gamers():
+    global names
+    global total_gamers
+    total_gamers=int(input('Введите количество игроков: '))
+    for counter in range(1,int(total_gamers)+1):
+        names.append(input('Введите имя игрока №{}:'.format(counter)))
+    return names
 
-# TODO здесь ваш код...
+def change_gamer():
+    global gamer
+    global move
+    if move==total_gamers-1:
+        move=0
+        gamer=names[move]
+    else:
+        gamer=names[move]
+
+def input_number():
+    global move
+    win=False
+    while win==False:
+        change_gamer()
+        move += 1
+        quessed =list(input('{} введите число: '.format(gamer)))
+        while len(quessed) != 4:
+            print('Число должно быть четырёхзначное!')
+            quessed = list(input('Введите число: '))
+        else:
+            bull,cow=сheck_number(quessed)
+            if bull==4:
+                win=True
+            else:
+                print ('быков:', str(bull), 'коров:', str(cow))
+    else:
+        print(gamer, 'Поздравляем! Вы выиграли!')
+
+name_gamers()
+think_number()
+input_number()
