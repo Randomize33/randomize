@@ -1,6 +1,7 @@
 import random
 
 number=[]
+move=0
 
 def think_number():
     for counter in range (0,4):
@@ -21,6 +22,15 @@ def сheck_number(quessed):
             cow=cow+1
             win=False
     return (bull,cow)
+
+def change_gamer(names,total_gamers,move):
+    global gamer
+    if move==total_gamers-1:
+        move=0
+        gamer=names[move]
+    else:
+        gamer=names[move]
+    return (gamer,move+1)
 
 
 
