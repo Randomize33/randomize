@@ -44,7 +44,7 @@
 # Точнее, в этом случае важен принцип единственной ответственности - https://goo.gl/rYb3hT
 #
 #
-from mastermind_engine import сheck_number, think_number
+from mastermind_engine import сheck_number, think_number, change_gamer
 names=[]
 gamer=''
 move=0
@@ -57,21 +57,12 @@ def name_gamers():
         names.append(input('Введите имя игрока №{}:'.format(counter)))
     return names
 
-def change_gamer():
-    global gamer
-    global move
-    if move==total_gamers-1:
-        move=0
-        gamer=names[move]
-    else:
-        gamer=names[move]
 
 def input_number():
     global move
     win=False
     while win==False:
-        change_gamer()
-        move += 1
+        gamer,move=change_gamer(names,total_gamers,move)
         quessed =list(input('{} введите число: '.format(gamer)))
         while len(quessed) != 4:
             print('Число должно быть четырёхзначное!')
