@@ -2,9 +2,21 @@
 import random
 
 import simple_draw as sd
-def paint_snowflake():
-    sd.snowflake(sd.get_point(200,200),50,color='WHITE')
-    sd.pause()
+
+def paint_some_snowflake(x,y):
+    sd.snowflake(sd.get_point(x,y),10,color='WHITE')
+    sd.sleep(0.1)
+
+def paint_color_snowflake(x,y,color):
+    sd.snowflake(sd.get_point(x, y), 10, color=color)
+
+def move_snowflake(x,y):
+    x+=random.randint(-20,20)
+    y-=random.randint(5,25)
+    return (x,y)
+
+
+
 
 
 
@@ -61,7 +73,7 @@ def paint_snowflake():
 #     if sd.user_want_exit():
 #         break
 
-sd.pause()
+# sd.pause()
 
 # подсказка! для ускорения отрисовки можно
 #  - убрать clear_screen()
