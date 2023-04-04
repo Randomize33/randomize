@@ -66,6 +66,10 @@ class Man:
         self.fullness -= 10
         cprint('{} Вьехал в дом'.format(self.name), color='cyan')
 
+    def pick_up_a_cat(self, nickname):
+        cat.house=self.house
+        cprint('{} притащил в дом кота по имени {}'.format(self.name,cat.nickname), color='cyan')
+
     def act(self):
         if self.fullness <= 0:
             cprint('{} умер...'.format(self.name), color='red')
@@ -84,26 +88,41 @@ class Man:
         else:
             self.watch_MTV()
 
-class cat:
+class Cat:
+    def __init__(self,nickname):
+        self.nickname = nickname
+        self.fullness = 10
+        self.house = None
 
-    def __init__(self, name, house):
-        self.name = name
-        self.fullness = 50
-        self.house = house
+    def __str__(self):
+        return 'Я - {}, сытость {}'.format(
+            self.nickname, self.fullness)
 
     def sleep(self):
-        cprint('{} поспал'.format(self.name), color='orange')
+        cprint('{} поспал'.format(self.nickname), color='orange')
         self.fullness -= 10
 
     def eat(self):
-        cprint('{} поел'.format(self.name), color='orange')
+        cprint('{} поел'.format(self.nickname), color='orange')
         self.fullness += 20
         self.house.feed -= 10
 
     def tear_wallpaper(self):
-        cprint('{} изодрал обои'.format(self.name), color='orange')
+        cprint('{} изодрал обои'.format(self.nickname), color='orange')
         self.fullness -= 10
         self.house.mess += 5
+
+    def act (self):
+        if self.fullness <= 0:
+            cprint('{} умер...'.format(self.nickname), color='red')
+            return
+        if self.fullness < 20:
+            self.eat()
+        elif self.house.feed < 10:
+            self.sleep()
+        else:
+            self.tear_wallpaper()
+
 
 class House:
 
@@ -118,6 +137,7 @@ class House:
             self.food, self.feed, self.money)
 
 
+
 citizens = [
     Man(name='Бивис'),
     Man(name='Батхед'),
@@ -126,16 +146,21 @@ citizens = [
 
 
 my_sweet_home = House()
+cat = Cat(nickname='Барсик')
 for citisen in citizens:
     citisen.go_to_the_house(house=my_sweet_home)
+
+citizens[0].pick_up_a_cat(nickname=cat)
 
 for day in range(1, 366):
     print('================ день {} =================='.format(day))
     for citisen in citizens:
         citisen.act()
+    cat.act()
     print('--- в конце дня ---')
     for citisen in citizens:
         print(citisen)
+    print(cat)
     print(my_sweet_home)
 
 # Усложненное задание (делать по желанию)
