@@ -61,6 +61,14 @@ class Man:
         else:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
+    def buy_feed(self):
+        if self.house.money >= 50:
+            cprint('{} купил коту еды'.format(self.name), color='magenta')
+            self.house.money -= 50
+            self.house.feed += 50
+        else:
+            cprint('{} деньги кончились!'.format(self.name), color='red')
+
     def go_to_the_house(self, house):
         self.house = house
         self.fullness -= 10
@@ -77,10 +85,12 @@ class Man:
         dice = randint(1, 6)
         if self.fullness < 20:
             self.eat()
-        elif self.house.food < 10:
-            self.shopping()
         elif self.house.money < 50:
             self.work()
+        elif self.house.food < 10:
+            self.shopping()
+        elif self.house.feed < 10:
+            self.buy_feed()
         elif dice == 1:
             self.work()
         elif dice == 2:
@@ -103,9 +113,12 @@ class Cat:
         self.fullness -= 10
 
     def eat(self):
-        cprint('{} поел'.format(self.nickname), color='orange')
-        self.fullness += 20
-        self.house.feed -= 10
+        if self.house.feed >=10:
+            cprint('{} поел'.format(self.nickname), color='orange')
+            self.fullness += 20
+            self.house.feed -= 10
+        else:
+            cprint('{} корма нет, дайте пожрать'.format(self.nickname), color='red')
 
     def tear_wallpaper(self):
         cprint('{} изодрал обои'.format(self.nickname), color='orange')
