@@ -50,6 +50,9 @@ class House:
         self.money=100
         self.food=50
         self.mess=0
+        self.total_expenses=0
+        self.total_food_eaten=0
+        self.total_fur=0
 
     def __str__(self):
         self.mess+=5
@@ -74,10 +77,12 @@ class Human:
             if self.house.food<30:
                 self.fullness += self.house.food
                 self.house.food-=self.house.food
+                self.house.total_food_eaten+=self.house.food
                 cprint('{} поел'.format(self.name))
             else:
                 self.house.food-=30
                 self.fullness+=30
+                self.house.total_food_eaten +=30
                 cprint('{} поел'.format(self.name))
 class Husband(Human):
 
@@ -90,7 +95,7 @@ class Husband(Human):
     def act(self):
         if self.fullness<=0:
             cprint('{} умер от голода'.format(self.name),'red')
-        elif self.fullness<=10:
+        elif self.fullness<=30:
             self.eat()
         elif self.house.money<100:
             self.work()
@@ -121,7 +126,7 @@ class Wife(Human):
             cprint('{} умерла от голода'.format(self.name),'red')
         elif self.happy<=0:
             cprint('{} умерла от депрессии'.format(self.name), 'red')
-        elif self.fullness <=10:
+        elif self.fullness <=30:
             self.eat()
         elif self.house.food <= 100:
             self.shopping()
@@ -135,9 +140,10 @@ class Wife(Human):
         if self.house.money<0:
             cprint('Денег нет','red')
         else:
-            self.fullness -= 10
-            self.house.food+=50
-            self.house.money-=50
+            self.fullness-=10
+            self.house.food+=30
+            self.house.money-=30
+            self.house.total_expenses+=30
             cprint('{} купила еды'.format(self.name),'yellow')
 
     def buy_fur_coat(self):
@@ -147,6 +153,8 @@ class Wife(Human):
             self.fullness -= 10
             self.happy += 60
             self.house.money -= 150
+            self.house.total_expenses +=150
+            self.house.total_fur+=1
             cprint('{} купила себе шубу и радуется'.format(self.name), 'yellow')
 
     def clean_house(self):
@@ -167,8 +175,8 @@ for day in range(365):
     cprint(Dasha, color='cyan')
     cprint(home, color='cyan')
 
-# TODO после реализации первой части - отдать на проверку учителю
-
+cprint('================== Итого ==================', color='red')
+cprint('Денег потрачено {}, еды съедено {}, шуб куплено {}'.format(home.total_expenses,home.total_food_eaten,home.total_fur),'blue')
 ######################################################## Часть вторая
 #
 # После подтверждения учителем первой части надо
