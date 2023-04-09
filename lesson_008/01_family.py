@@ -91,8 +91,9 @@ class Human:
 
 class Husband(Human):
 
-    def __init__(self,name,house):
+    def __init__(self,name,house,salary):
         super().__init__(name,house)
+        self.salary=salary
 
     def __str__(self):
         return super().__str__()
@@ -114,7 +115,7 @@ class Husband(Human):
                 self.pet_cat()
 
     def work(self):
-        self.house.money+=150
+        self.house.money+=self.salary
         self.fullness-=10
         cprint('{} сходил на работу'.format(self.name),'light_blue')
 
@@ -259,7 +260,7 @@ class Cat:
 
 
 home = House()
-alex = Husband(name='Саша', house=home)
+alex = Husband(name='Саша', house=home,salary=200)
 dasha = Wife(name='Даша', house=home)
 baton = Cat(nickname='Батончик', house=home)
 
@@ -305,31 +306,6 @@ class Child:
 
 
 # TODO после реализации второй части - отдать на проверку учителем две ветки
-
-
-######################################################## Часть третья
-#
-# после подтверждения учителем второй части (обоих веток)
-# влить в мастер все коммиты из ветки develop и разрешить все конфликты
-# отправить на проверку учителем.
-
-
-# home = House()
-# serge = Husband(name='Сережа')
-# masha = Wife(name='Маша')
-# kolya = Child(name='Коля')
-# murzik = Cat(name='Мурзик')
-#
-# for day in range(365):
-#     cprint('================== День {} =================='.format(day), color='red')
-#     serge.act()
-#     masha.act()
-#     kolya.act()
-#     murzik.act()
-#     cprint(serge, color='cyan')
-#     cprint(masha, color='cyan')
-#     cprint(kolya, color='cyan')
-#     cprint(murzik, color='cyan')
 
 
 # Усложненное задание (делать по желанию)
