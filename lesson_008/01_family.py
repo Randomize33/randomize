@@ -18,6 +18,13 @@ class House:
         self.total_fur=0
 
     def __str__(self):
+        rnd=randint(1,366)
+        if rnd==1:
+            self.money-=self.money/2
+            return 'Кто-то украл деньги {}'.format(self.money / 2)
+        if rnd==2:
+            self.food-=self.food/2
+            return 'Кто-то сожрал еду {}'.format(self.food / 2)
         self.mess+=5
         return 'Денег в тумбочке {}, еды в холодильнике {}, грязи в доме {}, еды для коты {}'.format(
             self.money,self.food,self.mess,self.feed
@@ -127,9 +134,9 @@ class Wife(Human):
             self.house.money-=30
             self.house.total_expenses+=30
             if self.house.feed<50:
-                self.house.money-=10
-                self.house.feed+=10
-                self.house.total_expenses+=10
+                self.house.money-=20
+                self.house.feed+=20
+                self.house.total_expenses+=20
                 cprint('{} сходила в магазин за покупками'.format(self.name),'yellow')
 
 
@@ -195,18 +202,6 @@ class Cat:
         self.house.mess+=5
         cprint('{} изодрал обои, скотина такая'.format(self.nickname))
 
-
-######################################################## Часть вторая бис
-#
-# После реализации первой части надо в ветке мастер продолжить работу над семьей - добавить ребенка
-#
-# Ребенок может:
-#   есть,
-#   спать,
-#
-# отличия от взрослых - кушает максимум 10 единиц еды,
-# степень счастья  - не меняется, всегда ==100 ;)
-
 class Child(Human):
 
     def __init__(self,name,house):
@@ -244,8 +239,9 @@ class Child(Human):
 home = House()
 alex = Husband(name='Саша', house=home,salary=200)
 dasha = Wife(name='Даша', house=home)
-baton = Cat(nickname='Батончик', house=home)
 sonya = Child(name='Соня',house=home)
+baton = Cat(nickname='Батончик', house=home)
+murzik = Cat(nickname='Мурзик', house=home)
 
 for day in range(365):
     cprint('================== День {} =================='.format(day), color='red')
@@ -253,10 +249,12 @@ for day in range(365):
     dasha.act()
     sonya.act()
     baton.act()
+    murzik.act()
     cprint(alex, color='cyan')
     cprint(dasha, color='cyan')
     cprint(sonya, color='cyan')
     cprint(baton, color='cyan')
+    cprint(murzik, color='cyan')
     cprint(home, color='white')
 
 cprint('================== Итого ==================', color='red')
