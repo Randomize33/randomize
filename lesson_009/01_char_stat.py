@@ -21,7 +21,38 @@
 # Упорядочивание по частоте - по убыванию. Ширину таблицы подберите по своему вкусу
 # Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
 
-# TODO здесь ваш код
+class Sort_char():
+
+    def __init__(self,file_in):
+        self.file_in=file_in
+        self.stat_chars={}
+        self.chars_total=0
+
+    def pars_line(self):
+        with open (self.file_in, mode='r', encoding='cp1251') as file:
+            for line in file:
+                for char in line:
+                    if char.isalpha():
+                        self.chars_total+=1
+                        if char in self.stat_chars:
+                            self.stat_chars[char]+=1
+                        else:
+                            self.stat_chars[char]=1
+
+
+
+
+kniga=Sort_char('voyna-i-mir.txt')
+kniga.pars_line()
+sort_chars=dict(sorted(kniga.stat_chars.items(), key=lambda item: item[1], reverse=True))
+print("{}{}".format("+-----","+-------+"))
+print("|{:<5}|{:^6}|".format("Буква","Частота"))
+print("{}{}".format("+-----","+-------+"))
+for char in sort_chars:
+    print("|{:^5}|{:>7}|".format(char,sort_chars.get(char)))
+print("{}{}".format("+-----","+-------+"))
+print("|{:<5}|{:^6}|".format("Итого",kniga.chars_total))
+print("{}{}".format("+-----","+-------+"))
 
 # После выполнения первого этапа нужно сделать упорядочивание статистики
 #  - по частоте по возрастанию
