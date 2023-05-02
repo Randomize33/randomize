@@ -44,7 +44,8 @@ class Sort_char():
 
 kniga=Sort_char('voyna-i-mir.txt')
 kniga.pars_line()
-sort_chars=dict(sorted(kniga.stat_chars.items(), key=lambda item: item[1], reverse=True))
+# sort_chars=dict(sorted(kniga.stat_chars.items(), key=lambda item: item[1], reverse=True))
+sort_chars=dict(sorted(kniga.stat_chars.items()),)
 print("{}{}".format("+-----","+-------+"))
 print("|{:<5}|{:^6}|".format("Буква","Частота"))
 print("{}{}".format("+-----","+-------+"))

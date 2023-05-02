@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import os, time, shutil
+import os, time, shutil, zipfile
+from os.path import join
+import shutil
 
 # Нужно написать скрипт для упорядочивания фотографий (вообще любых файлов)
 # Скрипт должен разложить файлы из одной папки по годам и месяцам в другую.
@@ -34,7 +36,39 @@ import os, time, shutil
 # Чтение документации/гугла по функциям - приветствуется. Как и поиск альтернативных вариантов :)
 # Требования к коду: он должен быть готовым к расширению функциональности. Делать сразу на классах.
 
-# TODO здесь ваш код
+class Files:
+    def __init__(self,filename):
+        self.filename=filename
+        self.root_dir=""
+    def unzip(self):
+        zfile = zipfile.ZipFile(self.filename, 'r')
+        for filename in zfile.namelist():
+            self.root_dir=zfile.extract(filename)
+        self.file_name = filename
+
+    def take_date(self):
+        self.root_dir=os.getcwd()+"\icons"
+        for root, dirs, files in os.walk(self.root_dir):
+            for name in files:
+                year=str(time.gmtime(os.path.getmtime(join(root, name)))[0])
+                month=str(time.gmtime(os.path.getmtime(join(root, name)))[1])
+                now_file=join(root,name)
+                self.create_dir(year,month,now_file)
+
+    def create_dir(self,year,month,now_file):
+        now_dir=join(self.root_dir+year+month)
+        print(now_dir)
+        if os.path.exists(now_dir):
+            shutil.move(now_file,now_dir)
+        else:
+            os.mkdir(now_dir)
+            shutil.move(now_file, now_dir)
+
+
+
+icons=Files("icons.zip")
+icons.unzip()
+icons.take_date()
 
 # Усложненное задание (делать по желанию)
 # Нужно обрабатывать zip-файл, содержащий фотографии, без предварительного извлечения файлов в папку.
