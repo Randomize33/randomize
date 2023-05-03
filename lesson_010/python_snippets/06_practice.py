@@ -23,7 +23,7 @@ def calc(line):
     elif operation == '/':
         value = operand_1 / operand_2
     elif operation == '*':
-        value = operand_1 / operand_2
+        value = operand_1 * operand_2
     elif operation == '//':
         value = operand_1 // operand_2
     elif operation == '%':
