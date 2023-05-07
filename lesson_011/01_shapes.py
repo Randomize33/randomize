@@ -14,14 +14,18 @@ import simple_draw as sd
 
 
 def get_polygon(n):
-    def draw_side(**kwargs):
-        for key, value in kwargs.items():
-            print("{} is {}".format(key, value))
-    return draw_side()
+    def draw_sides(point,angle,length):
+        angle_count=0
+        angle_delta=360/n
+        while angle_count < n:
+            point=sd.vector(start=point,angle=angle,length=length)
+            angle_count+=1
+            angle+=angle_delta
+    return draw_sides
 
-
-draw_triangle = get_polygon(n=3)
-draw_triangle(point=sd.get_point(200, 200), angle=13, length=100)
-
+n=int(input("Введите количество сторон: "))
+draw_figure = get_polygon(n)
+draw_figure(point=sd.get_point(200, 200), angle=13, length=100)
 
 sd.pause()
+
