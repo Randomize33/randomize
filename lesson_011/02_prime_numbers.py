@@ -4,15 +4,15 @@
 # Есть функция генерации списка простых чисел
 
 
-def get_prime_numbers(n):
-    prime_numbers = []
-    for number in range(2, n+1):
-        for prime in prime_numbers:
-            if number % prime == 0:
-                break
-        else:
-            prime_numbers.append(number)
-    return prime_numbers
+# def get_prime_numbers(n):
+#     prime_numbers = []
+#     for number in range(2, n+1):
+#         for prime in prime_numbers:
+#             if number % prime == 0:
+#                 break
+#         else:
+#             prime_numbers.append(number)
+#     return prime_numbers
 
 # Часть 1
 # На основе алгоритма get_prime_numbers создать класс итерируемых обьектов,
@@ -21,53 +21,60 @@ def get_prime_numbers(n):
 # Распечатать все простые числа до 10000 в столбик
 
 
-class PrimeNumbers:
-    def __init__(self,n):
-        self.divisible=1
-        self.divider=1
-        self.n=n
+# class PrimeNumbers:
+#     def __init__(self,n):
+#         self.divisible=1
+#         self.divider=1
+#         self.n=n
+#
+#     def __iter__(self):
+#         self.divisible=1
+#         self.divider=1
+#         if self != None:
+#             return self
+#
+#     def __next__(self):
+#         self.divisible += 1
+#         self.divider = self.divisible
+#         while self.divider>1:
+#             if self.divisible>self.n:
+#                 break
+#             self.divider-=1
+#             if self.divisible % self.divider == 0:
+#                 break
+#         if self.divider==1:
+#             return self.divisible
+#
+#
+#
+#
+#
+# prime_number_iterator = PrimeNumbers(n=10000)
+# for number in prime_number_iterator:
+#     if number:
+#         print(number)
 
-    def __iter__(self):
-        self.divisible=1
-        self.divider=1
-        if self != None:
-            return self
 
-    def __next__(self):
-        self.divisible += 1
-        self.divider = self.divisible
-        while self.divider>1:
-            if self.divisible>self.n:
-                break
-            self.divider-=1
-            if self.divisible % self.divider == 0:
-                break
-        if self.divider==1:
-            return self.divisible
-
-
-
-
-
-prime_number_iterator = PrimeNumbers(n=10000)
-for number in prime_number_iterator:
-    if number:
-        print(number)
-
-
-# TODO после подтверждения части 1 преподователем, можно делать
 # Часть 2
 # Теперь нужно создать генератор, который выдает последовательность простых чисел до n
 # Распечатать все простые числа до 10000 в столбик
 
 
-# def prime_numbers_generator(n):
-#     pass
-#     # TODO здесь ваш код
-#
-#
-# for number in prime_numbers_generator(n=10000):
-#     print(number)
+def prime_numbers_generator(n,divisible,):
+    for _ in range(n):
+        divisible += 1
+        divider = divisible
+        while divider>1:
+            divider-=1
+            if divisible % divider == 0:
+                break
+        if divider==1:
+            yield divisible
+
+
+divisible=2
+for number in prime_numbers_generator(n=10000,divisible=1):
+    print(number)
 
 
 # Часть 3
