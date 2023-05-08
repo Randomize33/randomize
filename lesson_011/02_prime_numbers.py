@@ -117,6 +117,6 @@ def palindrome(number):
 my_numbers=[1742651,234,3223,452101254]
 # result=filter(is_lucky,my_numbers)
 # print(list(result))
-result=filter(palindrome,my_numbers)
-print(list(result))
+# result=filter(palindrome,my_numbers)
+# print(list(result))
 
