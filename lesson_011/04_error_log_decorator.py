@@ -9,8 +9,14 @@
 
 
 def log_errors(func):
-    pass
-    # TODO здесь ваш код
+    def wrapper(*args,**kwargs):
+        try:
+            func(args,**kwargs)
+        except Exception as exc:
+            with open("function_errors.log",mode="a",encoding="UTF8") as log_file:
+                log_file.write(f"Функция: {func.__name__} выдала ошибку: {exc} \n")
+    return wrapper
+
 
 
 # Проверить работу на следующих функциях
