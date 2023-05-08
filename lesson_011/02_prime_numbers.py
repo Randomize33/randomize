@@ -60,21 +60,21 @@
 # Распечатать все простые числа до 10000 в столбик
 
 
-def prime_numbers_generator(n,divisible,):
-    for _ in range(n):
-        divisible += 1
-        divider = divisible
-        while divider>1:
-            divider-=1
-            if divisible % divider == 0:
-                break
-        if divider==1:
-            yield divisible
-
-
-divisible=2
-for number in prime_numbers_generator(n=10000,divisible=1):
-    print(number)
+# def prime_numbers_generator(n,divisible,):
+#     for _ in range(n):
+#         divisible += 1
+#         divider = divisible
+#         while divider>1:
+#             divider-=1
+#             if divisible % divider == 0:
+#                 break
+#         if divider==1:
+#             yield divisible
+#
+#
+# divisible=2
+# for number in prime_numbers_generator(n=10000,divisible=1):
+#     print(number)
 
 
 # Часть 3
@@ -92,3 +92,19 @@ for number in prime_numbers_generator(n=10000,divisible=1):
 # простых счастливых палиндромных чисел и так далее. Придумать не менее 2х способов.
 #
 # Подсказка: возможно, нужно будет добавить параметр в итератор/генератор.
+
+def is_lucky(number):
+    a = 0
+    b = 0
+    first_part=str(number)[0:(len(str(number))//2)]
+    second_part=str(number)[-(len(str(number))//2):]
+    for i in first_part:
+        a+=int(i)
+    for i in second_part:
+        b+=int(i)
+    return a==b
+
+my_numbers=[1742651,234,3223]
+result=filter(is_lucky,my_numbers)
+print(list(result))
+
