@@ -104,7 +104,19 @@ def is_lucky(number):
         b+=int(i)
     return a==b
 
-my_numbers=[1742651,234,3223]
-result=filter(is_lucky,my_numbers)
+def palindrome(number):
+    a = 0
+    b = 0
+    first_part=str(number)[0:(len(str(number))//2)]
+    second_part=str(number)[-(len(str(number))//2):]
+    for i in range(len(str(number))//2):
+        if first_part[i] != second_part[-i-1]:
+            return False
+    return True
+
+my_numbers=[1742651,234,3223,452101254]
+# result=filter(is_lucky,my_numbers)
+# print(list(result))
+result=filter(palindrome,my_numbers)
 print(list(result))
 
