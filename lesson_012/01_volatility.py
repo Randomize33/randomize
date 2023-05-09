@@ -113,23 +113,29 @@ class Parser():
                         self.minprice=self.dealprice
                     if self.maxprice<self.dealprice:
                         self.maxprice=self.dealprice
-                self.average_price = (self.maxprice + self.minprice)/2
-                self.volatility = ((self.maxprice - self.minprice)/self.average_price)*100
-                if self.volatility==0:
-                    self.volatility_null.append(self.ticker)
-                else:
-                    self.ticker=str(self.ticker)
-                    self.volatility_list[self.ticker]=round(self.volatility,2)
-        self.volatility_list=dict(sorted(self.volatility_list.items(), key=lambda item: item[1]))
+                self.calculation()
+
+    def calculation(self):
+        self.average_price = (self.maxprice + self.minprice) / 2
+        self.volatility = ((self.maxprice - self.minprice) / self.average_price) * 100
+        if self.volatility == 0:
+            self.volatility_null.append(self.ticker)
+        else:
+            self.ticker = str(self.ticker)
+            self.volatility_list[self.ticker] = round(self.volatility, 2)
+    def output(self):
+        self.volatility_list = dict(sorted(self.volatility_list.items(), key=lambda item: item[1]))
         print("Максимальная волатильность")
-        for i in range (1,4):
-            print(list(self.volatility_list.keys())[len(self.volatility_list)-i],list(self.volatility_list.values())[len(self.volatility_list)-i],"%")
+        for i in range(1, 4):
+            print(list(self.volatility_list.keys())[len(self.volatility_list) - i],
+                  list(self.volatility_list.values())[len(self.volatility_list) - i], "%")
         print("Минимальная волатильность")
-        for i in range (3):
-            print(list(self.volatility_list.keys())[i],list(self.volatility_list.values())[i],"%")
+        for i in range(3):
+            print(list(self.volatility_list.keys())[i], list(self.volatility_list.values())[i], "%")
         print("Нулевая волатильность:")
-        for i in range (len(self.volatility_null)):
-            print(self.volatility_null[i],end=", ")
+        for i in range(len(self.volatility_null)):
+            print(self.volatility_null[i], end=", ")
+
 
 
 
@@ -146,3 +152,4 @@ files=File(path)
 files.read_dir()
 parser=Parser(dir=path,files=files.list_files)
 parser.parsing()
+parser.output()
