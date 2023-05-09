@@ -72,5 +72,77 @@
 #
 #     def run(self):
 #         <обработка данных>
+import os
+import time
 
-# TODO написать код в однопоточном/однопроцессорном стиле
+def time_track(func):
+    def surrogate(*args, **kwargs):
+        started_at = time.time()
+
+        result = func(*args, **kwargs)
+
+        ended_at = time.time()
+        elapsed = round(ended_at - started_at, 4)
+        print(f'Функция работала {elapsed} секунд(ы)')
+        return result
+    return surrogate
+class Parser():
+    def __init__(self,dir,files):
+        self.files=files
+        self.dir=dir
+        self.volatility_null = []
+        self.volatility_list = {}
+
+    @time_track
+    def parsing(self):
+        for file in self.files:
+            self.ticker = ""
+            self.dealtime = ""
+            self.dealprice = ""
+            self.countpaper = ""
+            self.maxprice=0
+            self.minprice=9999999
+            self.volatility=0
+            with open ((self.dir+file),mode='r',encoding='UTF8') as file_ticket:
+                for line in file_ticket:
+                    self.ticker,self.dealtime,self.dealprice,self.countpapaer=line.split(',')
+                    if self.dealprice=="PRICE":
+                        continue
+                    self.dealprice=float(self.dealprice)
+                    if self.minprice>self.dealprice:
+                        self.minprice=self.dealprice
+                    if self.maxprice<self.dealprice:
+                        self.maxprice=self.dealprice
+                self.average_price = (self.maxprice + self.minprice)/2
+                self.volatility = ((self.maxprice - self.minprice)/self.average_price)*100
+                if self.volatility==0:
+                    self.volatility_null.append(self.ticker)
+                else:
+                    self.ticker=str(self.ticker)
+                    self.volatility_list[self.ticker]=round(self.volatility,2)
+        self.volatility_list=dict(sorted(self.volatility_list.items(), key=lambda item: item[1]))
+        print("Максимальная волатильность")
+        for i in range (1,4):
+            print(list(self.volatility_list.keys())[len(self.volatility_list)-i],list(self.volatility_list.values())[len(self.volatility_list)-i],"%")
+        print("Минимальная волатильность")
+        for i in range (3):
+            print(list(self.volatility_list.keys())[i],list(self.volatility_list.values())[i],"%")
+        print("Нулевая волатильность:")
+        for i in range (len(self.volatility_null)):
+            print(self.volatility_null[i],end=", ")
+
+
+
+
+class File():
+    def __init__(self,dir):
+        self.dir=dir
+        self.list_files=[]
+    def read_dir(self):
+        self.list_files=os.listdir(self.dir)
+
+path="C:/Users/Randomize/PycharmProjects/randomize/lesson_012/trades/"
+files=File(path)
+files.read_dir()
+parser=Parser(dir=path,files=files.list_files)
+parser.parsing()
