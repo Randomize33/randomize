@@ -87,7 +87,7 @@ def time_track(func):
         return result
     return surrogate
 class Parser():
-    def __init__(self,dir,files):
+    def __init__(self,files):
         self.files=files
         self.dir=dir
         self.volatility_null = []
@@ -103,7 +103,7 @@ class Parser():
             self.maxprice=0
             self.minprice=9999999
             self.volatility=0
-            with open ((self.dir+file),mode='r',encoding='UTF8') as file_ticket:
+            with open (file,mode='r',encoding='UTF8') as file_ticket:
                 for line in file_ticket:
                     self.ticker,self.dealtime,self.dealprice,self.countpapaer=line.split(',')
                     if self.dealprice=="PRICE":
@@ -141,15 +141,22 @@ class Parser():
 
 
 class File():
+
     def __init__(self,dir):
         self.dir=dir
         self.list_files=[]
-    def read_dir(self):
-        self.list_files=os.listdir(self.dir)
+        self.full_list_files = []
+    def write_list_files(self):
+        for file in os.listdir(self.dir):
+            self.list_files.append(self.dir+file)
+
+    # def write(self):
+    #     for file in self.list_files
 
 path="C:/Users/Randomize/PycharmProjects/randomize/lesson_012/trades/"
 files=File(path)
-files.read_dir()
-parser=Parser(dir=path,files=files.list_files)
+files.write_list_files()
+print(files.list_files)
+parser=Parser(files=files.list_files)
 parser.parsing()
 parser.output()
