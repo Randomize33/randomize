@@ -26,9 +26,7 @@ from queue import Empty
 def time_track(func):
     def surrogate(*args, **kwargs):
         started_at = time.time()
-
         result = func(*args, **kwargs)
-
         ended_at = time.time()
         elapsed = round(ended_at - started_at, 4)
         print(f'Функция работала {elapsed} секунд(ы)')
@@ -66,11 +64,6 @@ class Parser(Process):
         self.volatility = ((self.maxprice - self.minprice) / self.average_price) * 100
         self.conn.send([self.ticker, round(self.volatility, 2)])
         self.conn.close()
-        # if self.volatility == 0:
-        #     volatility_null.append(self.ticker)
-        # else:
-        #     self.ticker = str(self.ticker)
-        #     self.conn.send([self.ticker,round(self.volatility, 2)])
 
 
 
@@ -124,14 +117,6 @@ def main():
     for calc in files:
         calc.join()
     output(volatility_null,volatility_list)
-
-
-    # for calc in calculations:
-    #     calc.start()
-    # for calc in calculations:
-    #     calc.join()
-    # output(volatility_null,volatility_list)
-
 
 
 if __name__ == '__main__':
